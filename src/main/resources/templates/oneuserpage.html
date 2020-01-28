@@ -1,0 +1,22 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>CodeFellowship</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div th:each="user : ${users}">
+    <h3 th:text="'Welcome Back ' + ${user.username} + '!'"></h3>
+    <ul>
+        <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png";</li>
+        <li th:text="'First Name: ' + ${user.firstname}"></li>
+        <li th:text="'Last Name: ' + ${user.lastname}"></li>
+        <li th:text="'Date of Birth : ' + ${user.dateOfBirth}"></li>
+        <li th:text="'Bio : ' + ${user.bio}"></li>
+
+    </ul>
+</div>
+<script src="js/scripts.js"></script>
+</body>
+</html>
