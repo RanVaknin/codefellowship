@@ -1,7 +1,9 @@
 .posts {
-    background-color:oragne;
+    background-color:orange;
+    width: 70%;
+    height: 300px;
 
 }
-.posts li {
-
+.posts ul {
+    list-style-type: none;
 }

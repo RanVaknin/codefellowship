@@ -21,8 +21,8 @@
 
     <div class="posts" th:each="post : ${user.posts}">
         <ul>
+            <h3> <li th:text="${post.body}"></li></h3>
             <li th:text="'Published at: ' + ${post.timeStamp}"></li>
-            <li th:text="${post.body}"></li>
         </ul>
     </div>
 

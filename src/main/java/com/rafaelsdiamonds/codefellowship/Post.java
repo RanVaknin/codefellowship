@@ -20,7 +20,7 @@ public class Post {
 
     public Post(String body, String timeStamp,ApplicationUser applicationUser) {
         this.body = body;
-        this.timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        this.timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
         this.applicationUser = applicationUser;
     }
 
