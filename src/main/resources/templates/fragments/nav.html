@@ -1,0 +1,8 @@
+<div th:fragment="nav" xmlns:th="http://www.w3.org/1999/xhtml">
+    <span th:if="${user}"><h3 th:text="'Welcome back ' + ${user.username}"></h3>
+        <h4><a href="/logout"> Log out</a> &nbsp  &nbsp <a  th:href="'/users/'+${user.id}">  Profile</a></h4>
+        </span>
+    <span th:unless="${user}">Log in or sign up
+        <h4>Welcome! <a href="/signup">Sign Up</a>  here</h4>
+        <h4>returning user? <a href="/login"> Log in here!</a></h4></span>
+</div>

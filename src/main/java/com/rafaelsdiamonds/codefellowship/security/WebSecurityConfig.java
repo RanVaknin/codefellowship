@@ -3,6 +3,7 @@ package com.rafaelsdiamonds.codefellowship.security;
 //import com.mycode.securedemo.appuser.UserDetailsServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,9 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/signup").permitAll()
-                    .anyRequest().permitAll()
+                .antMatchers("/","signup","/login","/logout","/*.css","/*.js").permitAll()
+                .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")

@@ -6,8 +6,9 @@
 </head>
 
 <body>
+<nav th:replace="fragments/nav :: nav"></nav>
 <div th:each="user : ${users}">
-    <h3 th:text="'Welcome Back ' + ${user.username} + '!'"></h3>
+    <h3 th:text="'Profile :' + ${user.username}"></h3>
     <ul>
         <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png";</li>
         <li th:text="'First Name: ' + ${user.firstname}"></li>

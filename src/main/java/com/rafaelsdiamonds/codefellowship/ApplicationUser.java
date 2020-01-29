@@ -3,11 +3,10 @@ package com.rafaelsdiamonds.codefellowship;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -22,6 +21,9 @@ public class ApplicationUser implements UserDetails {
     private String lastname;
     private String dateOfBirth;
     private String bio;
+
+    @OneToMany(mappedBy = "applicationUser")
+    private List<Post> posts;
 
     public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
         this.username = username;
@@ -86,6 +88,10 @@ public class ApplicationUser implements UserDetails {
 
     public String getBio() {
         return bio;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 }
 
