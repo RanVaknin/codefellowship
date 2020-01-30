@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -24,6 +25,16 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "applicationUser")
     private List<Post> posts;
+
+    @ManyToMany
+    private Set<ApplicationUser> usersWhoFollowMe;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Follow",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<ApplicationUser> usersWhoIFollow;
 
     public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
         this.username = username;
@@ -92,6 +103,14 @@ public class ApplicationUser implements UserDetails {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public Set<ApplicationUser> getUsersWhoFollowMe() {
+        return usersWhoFollowMe;
+    }
+
+    public Set<ApplicationUser> getUsersWhoIFollow() {
+        return usersWhoIFollow;
     }
 }
 
