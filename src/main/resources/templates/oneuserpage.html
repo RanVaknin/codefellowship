@@ -7,16 +7,22 @@
 
 <body>
     <nav th:replace="fragments/nav :: nav"></nav>
-    <div th:each="user : ${users}">
+    <div>
         <h3 th:text="'Profile :' + ${user.username}"></h3>
         <ul>
-            <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png";</li>
+            <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png"</li>
             <li th:text="'First Name: ' + ${user.firstname}"></li>
             <li th:text="'Last Name: ' + ${user.lastname}"></li>
             <li th:text="'Date of Birth : ' + ${user.dateOfBirth}"></li>
             <li th:text="'Bio : ' + ${user.bio}"></li>
         </ul>
     </div>
+
+    <span th:if="${user != principal}">
+        <form th:action="'/follow/' + ${user.id}" method="POST">
+            <input type="submit" th:value="${'Follow ' + user.username +'!'}">
+        </form>
+    </span>
 
     <div th:if="${user}">
         <form action="/posts" method="post">
@@ -28,7 +34,8 @@
         </form>
         <div class="posts" th:each="post : ${user.posts}">
             <h3 th:text="${post.body}"></h3>
-            <p th:text="'Published at: ' + ${post.timeStamp}"></p>
+
+            <a th:href="'/users/' + ${user.id}"><p th:text="'Published at: ' + ${post.timeStamp} + ' by ' + ${user.username}"></p></a>
         </div>
     </div>
 </body>

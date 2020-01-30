@@ -31,10 +31,8 @@ public class CodeFellowshipController {
     @GetMapping("/")
     public String homepage(Principal p, Model m) {
         if (p != null) {
-            m.addAttribute("username", p.getName());
-            System.out.println(p.getName());
-            ApplicationUser user = repo.findByUsername(p.getName());
-            m.addAttribute("user", user);
+            ApplicationUser principal = repo.findByUsername(p.getName());
+            m.addAttribute("principal", principal);
         }
         return "index";
     }
@@ -59,33 +57,35 @@ public class CodeFellowshipController {
 
     }
 
-//    @GetMapping("/users")
-//    public String renderUsers(Model m){
-//        List<ApplicationUser> applicationUsers = repo.findAll();
-//        m.addAttribute("applicationUsers",applicationUsers);
-//        return "/users";
-//    }
+    @GetMapping("/users")
+    public String renderUsers(Model m, Principal p) {
+        if (p != null) {
+            ApplicationUser principal = repo.findByUsername(p.getName());
+            m.addAttribute("principal", principal);
+        }
+
+        List<ApplicationUser> applicationUsers = repo.findAll();
+        m.addAttribute("applicationUsers", applicationUsers);
+        return "/users";
+    }
 
     @GetMapping("/users/{id}")
     public String renderUserPage(@PathVariable Long id, Model m, Principal p) {
         if (p != null) {
-            m.addAttribute("username", p.getName());
-            System.out.println(p.getName());
-            ApplicationUser user = repo.findByUsername(p.getName());
+            ApplicationUser principal = repo.findByUsername(p.getName());
+            m.addAttribute("principal", principal);
+
+            ApplicationUser user = repo.getOne(id);
             m.addAttribute("user", user);
 
-            if (id == repo.findByUsername(p.getName()).getId()) {
-                m.addAttribute("users", repo.getOne(id));
-                return "oneuserpage";
-            } else {
-                return "index";
-            }
+            return "oneuserpage";
+        } else {
+            return "index";
         }
-        return "index";
     }
 
     @PostMapping("/posts")
-    public String renderPosts( Principal p,String body, String timeStamp,ApplicationUser applicationUser){
+    public String renderPosts(Principal p, String body, String timeStamp, ApplicationUser applicationUser) {
         Post post = new Post(body, timeStamp, repo.findByUsername(p.getName()));
         postRepository.save(post);
         return "oneuserpage";
@@ -93,6 +93,37 @@ public class CodeFellowshipController {
 
     @GetMapping("/login")
     public String login() {
-        return "oneuserpage";
+        return "login";
+    }
+
+    // error handler
+    @GetMapping("/error")
+    public RedirectView handleError() {
+        //do something like logging
+        return new RedirectView("/");
+    }
+
+    @PostMapping("/follow/{id}")
+    public RedirectView followUser(@PathVariable Long id, Model m, Principal p) {
+        // grabs person who is browsing by principal
+        ApplicationUser follower = repo.findByUsername(p.getName());
+        // grabs author from the path variable and the id on the form.
+        ApplicationUser author = repo.getOne(id);
+        // adds author to followers' list of peopleWHoIFollow
+        follower.getUsersWhoIFollow().add(author);
+        //update in db.
+        repo.save(follower);
+
+        return new RedirectView("/");
+    }
+
+    @GetMapping("/feed")
+    public String showFeed(Principal p, Model m) {
+        if (p != null) {
+            ApplicationUser principal = repo.findByUsername(p.getName());
+            m.addAttribute("principal", principal);
+
+        }
+        return "feed";
     }
 }
