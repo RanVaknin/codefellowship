@@ -2,30 +2,14 @@
 <head>
     <meta charset="utf-8">
     <title>CodeFellowship</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
     <nav th:replace="fragments/nav :: nav"></nav>
     <h1>Welcome to codeFellowship</h1>
-    <div th:if="${user}">
-        <form action="/posts" method="post">
-            <label for="body" >Write your post:</label>
-            <br>
-            <input id="body" name="body" style="width: 385px; height: 200px;">
-            <br>
-            <input type="submit" value="Post!">
-        </form>
-    </div>
 
-    <div class="posts" th:each="post : ${user.posts}">
-        <ul>
-            <h3> <li th:text="${post.body}"></li></h3>
-            <li th:text="'Published at: ' + ${post.timeStamp}"></li>
-        </ul>
-    </div>
 
-    <script src="js/scripts.js"></script>
 </body>
 </html>

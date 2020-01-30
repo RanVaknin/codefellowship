@@ -85,14 +85,14 @@ public class CodeFellowshipController {
     }
 
     @PostMapping("/posts")
-    public RedirectView renderPosts(Principal p,String body, String timeStamp,ApplicationUser applicationUser){
+    public String renderPosts( Principal p,String body, String timeStamp,ApplicationUser applicationUser){
         Post post = new Post(body, timeStamp, repo.findByUsername(p.getName()));
         postRepository.save(post);
-        return new RedirectView("/");
+        return "oneuserpage";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "oneuserpage";
     }
 }

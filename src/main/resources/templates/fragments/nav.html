@@ -1,4 +1,4 @@
-<div th:fragment="nav" xmlns:th="http://www.w3.org/1999/xhtml">
+<div id="navbar" th:fragment="nav" xmlns:th="http://www.w3.org/1999/xhtml">
     <span th:if="${user}"><h3 th:text="'Welcome back ' + ${user.username}"></h3>
         <h4><a href="/logout"> Log out</a> &nbsp  &nbsp <a  th:href="'/users/'+${user.id}">  Profile</a></h4>
         </span>

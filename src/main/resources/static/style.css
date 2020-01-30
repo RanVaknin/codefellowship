@@ -4,6 +4,13 @@
     height: 300px;
 
 }
-.posts ul {
-    list-style-type: none;
+
+p {
+    position: relative;
+    top: 78%;
+    left: 2%;
+}
+
+#navbar {
+    background-color:orange;
 }

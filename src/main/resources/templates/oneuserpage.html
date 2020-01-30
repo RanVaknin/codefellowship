@@ -2,22 +2,34 @@
 <head>
     <meta charset="utf-8">
     <title>CodeFellowship</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-<nav th:replace="fragments/nav :: nav"></nav>
-<div th:each="user : ${users}">
-    <h3 th:text="'Profile :' + ${user.username}"></h3>
-    <ul>
-        <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png";</li>
-        <li th:text="'First Name: ' + ${user.firstname}"></li>
-        <li th:text="'Last Name: ' + ${user.lastname}"></li>
-        <li th:text="'Date of Birth : ' + ${user.dateOfBirth}"></li>
-        <li th:text="'Bio : ' + ${user.bio}"></li>
+    <nav th:replace="fragments/nav :: nav"></nav>
+    <div th:each="user : ${users}">
+        <h3 th:text="'Profile :' + ${user.username}"></h3>
+        <ul>
+            <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png";</li>
+            <li th:text="'First Name: ' + ${user.firstname}"></li>
+            <li th:text="'Last Name: ' + ${user.lastname}"></li>
+            <li th:text="'Date of Birth : ' + ${user.dateOfBirth}"></li>
+            <li th:text="'Bio : ' + ${user.bio}"></li>
+        </ul>
+    </div>
 
-    </ul>
-</div>
-<script src="js/scripts.js"></script>
+    <div th:if="${user}">
+        <form action="/posts" method="post">
+            <label for="body" >Write your post:</label>
+            <br>
+            <textarea id="body" name="body" rows="10" cols="40"></textarea>
+            <br>
+            <input type="submit" value="Post!">
+        </form>
+        <div class="posts" th:each="post : ${user.posts}">
+            <h3 th:text="${post.body}"></h3>
+            <p th:text="'Published at: ' + ${post.timeStamp}"></p>
+        </div>
+    </div>
 </body>
 </html>
