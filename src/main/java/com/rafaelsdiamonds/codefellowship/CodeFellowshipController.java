@@ -43,9 +43,9 @@ public class CodeFellowshipController {
     }
 
     @PostMapping("/signup")
-    public RedirectView addNewUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
+    public RedirectView addNewUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio, String imgUrl) {
         if (repo.findByUsername(username) == null) {
-            ApplicationUser newUser = new ApplicationUser(username, encoder.encode(password), firstname, lastname, dateOfBirth, bio);
+            ApplicationUser newUser = new ApplicationUser(username, encoder.encode(password), firstname, lastname, dateOfBirth, bio, imgUrl);
             repo.save(newUser);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
@@ -85,10 +85,11 @@ public class CodeFellowshipController {
     }
 
     @PostMapping("/posts")
-    public String renderPosts(Principal p, String body, String timeStamp, ApplicationUser applicationUser) {
-        Post post = new Post(body, timeStamp, repo.findByUsername(p.getName()));
+    public RedirectView renderPosts(Principal p, String body, String timeStamp, Model m) {
+        ApplicationUser pId = repo.findByUsername(p.getName());
+        Post post = new Post(body, timeStamp, pId);
         postRepository.save(post);
-        return "oneuserpage";
+        return new RedirectView("/users/" + pId.getId()) ;
     }
 
     @GetMapping("/login")

@@ -11,7 +11,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
     private String body;
     private String timeStamp;
 

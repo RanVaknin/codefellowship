@@ -1,42 +1,43 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>CodeFellowship</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
+    <div th:replace="fragments/head :: head"></div>
+    <body>
+        <nav th:replace="fragments/nav :: nav"></nav>
+        <div class="container">
+            <div>
+                <h3 th:text="'Profile :' + ${principal.username}"></h3>
+                <ul class="user_details">
+                    <li><img th:src="${principal.imgUrl}"/></li>
+                    <li th:text="'First Name: ' + ${principal.firstname}"></li>
+                    <li th:text="'Last Name: ' + ${principal.lastname}"></li>
+                    <li th:text="'Date of Birth : ' + ${principal.dateOfBirth}"></li>
+                    <li th:text="'Bio : ' + ${principal.bio}"></li>
+                </ul>
+            </div>
 
-<body>
-    <nav th:replace="fragments/nav :: nav"></nav>
-    <div>
-        <h3 th:text="'Profile :' + ${user.username}"></h3>
-        <ul>
-            <li><img src="https://awesomers.com/assets/frappe/images/default-avatar.png"</li>
-            <li th:text="'First Name: ' + ${user.firstname}"></li>
-            <li th:text="'Last Name: ' + ${user.lastname}"></li>
-            <li th:text="'Date of Birth : ' + ${user.dateOfBirth}"></li>
-            <li th:text="'Bio : ' + ${user.bio}"></li>
-        </ul>
-    </div>
+            <span th:if="${user != principal}">
+                <form th:action="'/follow/' + ${user.id}" method="POST">
+                    <div class="form-group">
+                        <input type="submit" th:value="${'Follow ' + user.username +'!'}">
+                    </div>
+                </form>
+            </span>
 
-    <span th:if="${user != principal}">
-        <form th:action="'/follow/' + ${user.id}" method="POST">
-            <input type="submit" th:value="${'Follow ' + user.username +'!'}">
-        </form>
-    </span>
+            <div th:if="${user}">
+                <form action="/posts" method="post">
+                    <div class="form-group">
+                        <label for="body" >Write your post:</label>
+                        <br>
+                        <textarea id="body" name="body" rows="10" cols="40"></textarea>
+                        <br>
+                        <input type="submit" value="Post!">
+                    </div>
+                </form>
+                <div class="posts" th:each="post : ${user.posts}">
+                    <h3 th:text="${post.body}"></h3>
 
-    <div th:if="${user}">
-        <form action="/posts" method="post">
-            <label for="body" >Write your post:</label>
-            <br>
-            <textarea id="body" name="body" rows="10" cols="40"></textarea>
-            <br>
-            <input type="submit" value="Post!">
-        </form>
-        <div class="posts" th:each="post : ${user.posts}">
-            <h3 th:text="${post.body}"></h3>
-
-            <a th:href="'/users/' + ${user.id}"><p th:text="'Published at: ' + ${post.timeStamp} + ' by ' + ${user.username}"></p></a>
+                    <a th:href="'/users/' + ${user.id}"><p th:text="'Published at: ' + ${post.timeStamp} + ' by ' + ${user.username}"></p></a>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

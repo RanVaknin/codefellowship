@@ -10,6 +10,9 @@ p {
     top: 78%;
     left: 2%;
 }
+.user_details{
+    list-style-type: none;
+}
 
 #navbar {
     background-color:orange;
