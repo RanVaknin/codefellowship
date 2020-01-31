@@ -1,25 +1,15 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <title>CodeFellowship</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
+    <div th:replace="fragments/head :: head"></div>
+    <body>
+        <nav th:replace="fragments/nav :: nav"></nav>
+        <h1>User List</h1>
 
-<body>
+        <div th:each="user :  ${applicationUsers}" style="background-color:orange;">
+            <h3 th:text="${user.username}"></h3>
 
-    <nav th:replace="fragments/nav :: nav"></nav>
-    <h1>User List</h1>
-
-    <div th:each="user :  ${applicationUsers}" style="background-color:orange;">
-        <h3 th:text="${user.username}"></h3>
-
-        <form th:action="'/follow/' + ${user.id}" method="POST">
-            <input type="submit" value="Follow">
-        </form>
-
-    </div>
-
-
-
-</body>
+            <form th:action="'/follow/' + ${user.id}" method="POST">
+                <input type="submit" value="Follow">
+            </form>
+        </div>
+    </body>
 </html>

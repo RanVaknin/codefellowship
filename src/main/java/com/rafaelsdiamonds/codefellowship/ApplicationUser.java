@@ -22,6 +22,7 @@ public class ApplicationUser implements UserDetails {
     private String lastname;
     private String dateOfBirth;
     private String bio;
+    private String imgUrl;
 
     @OneToMany(mappedBy = "applicationUser")
     private List<Post> posts;
@@ -36,13 +37,14 @@ public class ApplicationUser implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<ApplicationUser> usersWhoIFollow;
 
-    public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
+    public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio, String imgUrl) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
+        this.imgUrl = imgUrl;
     }
 
     public ApplicationUser() {
@@ -111,6 +113,10 @@ public class ApplicationUser implements UserDetails {
 
     public Set<ApplicationUser> getUsersWhoIFollow() {
         return usersWhoIFollow;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 }
 

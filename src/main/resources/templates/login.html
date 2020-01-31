@@ -1,25 +1,22 @@
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>CodeFellowship</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:replace="fragments/head :: head"></div>
 
-<body>
+    <body>
+    <div th:replace="fragments/nav :: nav"></div>
 
-<h1>Log In</h1>
-<h3>welcome back friend, please enter your credentials to log in.</h3>
-<form action="/login" method="post">
-    <label for="username" >username:</label>
-    <input id="username" name="username">
-    <br>
-    <label for="Password" >Password:</label>
+    <h1>Log In</h1>
+        <h3>welcome back friend, please enter your credentials to log in.</h3>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username" >username:</label>
+                <input id="username" name="username">
+                <br>
+                <label for="Password" >Password:</label>
 
-    <input id="Password" type="password" name="password">
-<br>
-    <input type="submit" value="Log In">
-</form>
-
-
-</body>
+                <input id="Password" type="password" name="password">
+                <br>
+                <input type="submit" value="Log In">
+            </div>
+        </form>
+    </body>
 </html>
