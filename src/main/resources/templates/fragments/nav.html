@@ -1,6 +1,6 @@
 <div id="navbar" th:fragment="nav" xmlns:th="http://www.w3.org/1999/xhtml">
     <span th:if="${principal}"><h3 th:text="'Welcome back ' + ${principal.username}"></h3>
-        <h4><a href="/logout"> Log out</a> &nbsp  &nbsp <a  th:href="'/users/'+${principal.id}">  Profile</a><a href="/"> Home</a> <a href="/users">List of Users</a></h4>
+        <h4><a href="/logout"> Log out</a> &nbsp  &nbsp <a  th:href="'/users/'+${principal.id}">  Profile</a> &nbsp  &nbsp <a href="/"> Home</a> &nbsp  &nbsp <a href="/users">List of Users</a> &nbsp  &nbsp <a href="/feed">Feed</a></h4>
         </span>
     <span th:unless="${principal}">Log in or sign up
         <h4>Welcome! <a href="/signup">Sign Up</a>  here</h4>
